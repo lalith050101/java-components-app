@@ -19,8 +19,8 @@ import javax.mail.internet.MimeMultipart;
 
 public class EmailSenderV2Imp implements EmailSenderV2 {
 
-	private String from = "lalithcodes@gmail.com";
-	private String password = "lkcodes@123";
+	private String from = "sender_mailid";
+	private String password = "sender_pswd";
 	
 	@Override
 	public void sendEmail(String to, String subject, String body, String attachment) {

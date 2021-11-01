@@ -46,6 +46,7 @@ class MyInvocationHandler implements InvocationHandler {
 				}
 				try {
 					r = method.invoke(o, args);
+					break;
 				} catch (Exception e) {
 				}
 			}

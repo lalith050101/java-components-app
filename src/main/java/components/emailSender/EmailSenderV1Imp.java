@@ -12,8 +12,8 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSenderV1Imp implements EmailSenderV1 {
 
-	private String from = "lalithcodes@gmail.com";
-	private String password = "lkcodes@123";
+	private String from = "sender_mailid";
+	private String password = "sender_pswd";
 
 
 	@Override
@@ -35,7 +35,7 @@ public class EmailSenderV1Imp implements EmailSenderV1 {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			
-			message.addRecipient(Message.RecipientType.CC, new InternetAddress(to));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject(subject);
 			message.setText(body);
 			// send message
