@@ -25,16 +25,11 @@ public class App {
 		EmailSenderV2 esV2 = (EmailSenderV2) fir;
 		esV2.sendEmail("uit18130@rmd.ac.in", "Second mail", "Hi Lalith, \n Welcome to My App", pdfName + ".pdf");
 
-		
-		Object[][] bookData = {
-                {"Lalith", "student", 20},
-                {"Raj Kumar", "dev", 22},
-                {"bala", "student", 21}
-        };
+		Object[][] bookData = { { "Lalith", "student", 20 }, { "Raj Kumar", "dev", 22 }, { "bala", "student", 21 } };
 		ExcelCreator ec = new ExcelCreatorImp();
 		String excelName = "sample" + new Date().getTime();
 		ec.createExcel(excelName, bookData);
-		
+
 		esV2.sendEmail("uit18130@rmd.ac.in", "Third mail", "Hi Lalith, \n Welcome to My App", excelName + ".xlsx");
 	}
 }

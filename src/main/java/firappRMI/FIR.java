@@ -1,4 +1,4 @@
-package firapp;
+package firappRMI;
 
 import java.io.Serializable;
 

@@ -1,13 +1,17 @@
 package implementation;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class ImplementationFramework {
 
-	private static ArrayList<Class<?>> interfaces = new ArrayList<Class<?>>();
+	private static List<Class<?>> interfaces = new ArrayList<Class<?>>();
 
 	Object obj[];
 
@@ -15,8 +19,15 @@ public class ImplementationFramework {
 		interfaces.add(c);
 	}
 
-	public static Object getObject(Object[] objects) {
-		Object obj = Proxy.newProxyInstance(objects[0].getClass().getClassLoader(), getInterfaces(),
+	public static void setInterfaces(Class[] c) {
+		interfaces = Arrays.asList(c);
+//		for(Class cl: c) {
+//			interfaces.add(cl);
+//		}
+	}
+
+	public static Object getObject(Object o, Object[] objects) {
+		Object obj = Proxy.newProxyInstance(o.getClass().getClassLoader(), getInterfaces(),
 				new MyInvocationHandler(objects));
 		return obj;
 	}
@@ -27,7 +38,7 @@ public class ImplementationFramework {
 	}
 }
 
-class MyInvocationHandler implements InvocationHandler {
+class MyInvocationHandler implements InvocationHandler, Serializable {
 	Object obj[];
 
 	public MyInvocationHandler(Object obj[]) {
@@ -36,12 +47,12 @@ class MyInvocationHandler implements InvocationHandler {
 
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		
+
 		Object r = null;
 		for (Object o : obj) {
 			if (o != null) {
-				Method m[]=o.getClass().getDeclaredMethods();
-				for(Method mm:m) {
+				Method m[] = o.getClass().getDeclaredMethods();
+				for (Method mm : m) {
 					mm.setAccessible(true);
 				}
 				try {

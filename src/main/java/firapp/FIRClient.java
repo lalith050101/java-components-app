@@ -24,7 +24,7 @@ public class FIRClient {
 //		ImplementationFramework.setInterface(ExcelCreator.class);
 
 		// getting object
-		fir = ImplementationFramework.getObject(new Object[] { fir, eSender1, eSender2, e });
+		fir = ImplementationFramework.getObject(fir, new Object[] { eSender1, eSender2, e });
 
 		return fir;
 

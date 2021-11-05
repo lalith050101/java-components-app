@@ -1,5 +1,7 @@
 package components.emailSender;
 
+import java.io.FileInputStream;
+import java.io.Serializable;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -10,14 +12,23 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class EmailSenderV1Imp implements EmailSenderV1 {
+public class EmailSenderV1Imp implements EmailSenderV1, Serializable {
 
-	private String from = "sender_mailid";
-	private String password = "sender_pswd";
+	private String from;
+	private String password;
 
-
+	private void loadCreds() {
+		try {
+		Properties props = new Properties();
+		props.load(new FileInputStream("gmail-creds.properties"));
+		from = (String) props.get("email");
+		password = (String) props.get("password");
+		}catch(Exception e) {System.out.println("can't get Gmail Creds...");}
+	}
+	
 	@Override
 	public void sendEmail(String to, String subject, String body) {
+		loadCreds();
 		// Get properties object
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
@@ -34,7 +45,7 @@ public class EmailSenderV1Imp implements EmailSenderV1 {
 		// compose message
 		try {
 			MimeMessage message = new MimeMessage(session);
-			
+
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject(subject);
 			message.setText(body);
